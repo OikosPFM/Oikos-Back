@@ -1,5 +1,7 @@
 package com.pfm.oikos.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,4 +55,9 @@ public class FincaController {
     }
   }
 
+  @GetMapping
+  public ResponseEntity<List<Finca>> getAllFincas() {
+      List<Finca> fincas = fincaService.getAllFincas();
+      return new ResponseEntity<>(fincas, HttpStatus.OK);
+  }
 }
