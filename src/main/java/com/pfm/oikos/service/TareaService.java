@@ -1,5 +1,7 @@
 package com.pfm.oikos.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class TareaService {
     return tareaRepository.findById(idTarea)
       .orElseThrow(() -> new TareaNotFoundException("Tarea not found with id: " + idTarea));
   }
+  public List<Tarea> getAllTareas() {
+    return tareaRepository.findAll();
+}
 
   public void deleteTarea(Integer idTarea) throws TareaNotFoundException {
     if (tareaRepository.existsById(idTarea)) {
