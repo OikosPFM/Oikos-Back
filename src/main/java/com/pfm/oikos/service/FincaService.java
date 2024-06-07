@@ -1,5 +1,7 @@
 package com.pfm.oikos.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,8 @@ public class FincaService {
     } else {
       throw new FincaNotFoundException("Finca not found with id: " + idFinca);
     }
+  }
+  public List<Finca> getAllFincas() {
+      return fincaRepository.findAll();
   }
 }
