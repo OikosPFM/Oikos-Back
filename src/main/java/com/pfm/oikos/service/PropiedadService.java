@@ -1,8 +1,11 @@
 package com.pfm.oikos.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pfm.oikos.entity.Finca;
 import com.pfm.oikos.entity.Propiedad;
 import com.pfm.oikos.exception.PropiedadNotFoundException;
 import com.pfm.oikos.repository.PropiedadRepository;
@@ -28,5 +31,9 @@ public class PropiedadService {
     } else {
       throw new PropiedadNotFoundException("Propiedad not found with id: " + idPropiedad);
     }
+  }
+  
+  public List<Propiedad> getAllPropiedades() {
+      return propiedadRepository.findAll();
   }
 }
