@@ -1,8 +1,11 @@
 package com.pfm.oikos.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pfm.oikos.entity.Finca;
 import com.pfm.oikos.entity.Propiedad;
 import com.pfm.oikos.exception.PropiedadNotFoundException;
 import com.pfm.oikos.service.PropiedadService;
@@ -23,6 +27,7 @@ public class PropiedadController {
   @Autowired
   private PropiedadService propiedadService;
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Propiedad createPropiedad(@RequestBody Propiedad propiedad) {
@@ -50,6 +55,13 @@ public class PropiedadController {
     } catch (Exception exception) {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+  
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping
+  public ResponseEntity<List<Propiedad>> getAllFincas() {
+      List<Propiedad> propiedades = propiedadService.getAllPropiedades();
+      return new ResponseEntity<>(propiedades, HttpStatus.OK);
   }
 
 }

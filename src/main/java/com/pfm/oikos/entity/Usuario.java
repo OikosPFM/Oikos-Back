@@ -2,6 +2,8 @@ package com.pfm.oikos.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "idPropiedad")
+    @JsonBackReference
     private Propiedad propiedad;
 
     private String dni;

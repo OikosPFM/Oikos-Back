@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,9 +56,14 @@ public class FincaController {
     }
   }
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping
   public ResponseEntity<List<Finca>> getAllFincas() {
       List<Finca> fincas = fincaService.getAllFincas();
+      for(int i=0;i<fincas.size();i++) {
+    	  System.out.println(fincas.get(i).toString());
+      }
+      System.out.println(fincas.toString());
       return new ResponseEntity<>(fincas, HttpStatus.OK);
   }
 }
