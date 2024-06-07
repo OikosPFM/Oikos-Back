@@ -50,18 +50,17 @@ public class TareaController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
-
-  @DeleteMapping("/{idTarea}")
-  public ResponseEntity<HttpStatus> deleteTarea(@PathVariable("idTarea") Integer idTarea) {
-    try {
-      tareaService.deleteTarea(idTarea);
-      return new ResponseEntity<>(HttpStatus.OK);
-    } catch (TareaNotFoundException exception) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    } catch (Exception exception) {
-      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+  
+    @DeleteMapping("/{idTarea}")
+    public ResponseEntity<Void> deleteTarea(@PathVariable Integer idTarea) {
+        try {
+            tareaService.deleteTarea(idTarea);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (TareaNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-  }
-
 }
+
+
 
