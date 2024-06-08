@@ -11,30 +11,31 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "tarea")
 public class Tarea {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idTarea;
 
     @ManyToOne
-    @JoinColumn(name = "idInstalacion", nullable = false)
+    @JoinColumn(name = "ID_instalacion", nullable = false)
     private Instalacion instalacion;
 
-    private String nombreTarea;
-    private String descripcionTarea;
+    private String nombre;
+    private String descripcion;
     private LocalDate fecha;
     private LocalTime duracion;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuarioAsignado", nullable = false)
+    @JoinColumn(name = "ID_usuario_asignado", nullable = false)
     private Usuario usuarioAsignado;
 
     private boolean tareaAcabada;
 
     // Getters and Setters
+
     public Integer getIdTarea() {
         return idTarea;
     }
@@ -51,20 +52,20 @@ public class Tarea {
         this.instalacion = instalacion;
     }
 
-    public String getNombreTarea() {
-        return nombreTarea;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreTarea(String nombreTarea) {
-        this.nombreTarea = nombreTarea;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getDescripcionTarea() {
-        return descripcionTarea;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcionTarea(String descripcionTarea) {
-        this.descripcionTarea = descripcionTarea;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public LocalDate getFecha() {
