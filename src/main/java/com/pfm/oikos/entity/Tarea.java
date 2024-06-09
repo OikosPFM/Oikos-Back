@@ -3,6 +3,8 @@ package com.pfm.oikos.entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,8 @@ public class Tarea {
     private Integer idTarea;
 
     @ManyToOne
-    @JoinColumn(name = "ID_instalacion", nullable = false)
+    @JoinColumn(name = "ID_instalacion")
+    @JsonBackReference("instalacion")
     private Instalacion instalacion;
 
     private String nombre;
@@ -29,7 +32,8 @@ public class Tarea {
     private LocalTime duracion;
 
     @ManyToOne
-    @JoinColumn(name = "ID_usuario_asignado", nullable = false)
+    @JoinColumn(name = "ID_usuario_asignado")
+    @JsonBackReference("usuarioAsignado")
     private Usuario usuarioAsignado;
 
     private boolean tareaAcabada;
