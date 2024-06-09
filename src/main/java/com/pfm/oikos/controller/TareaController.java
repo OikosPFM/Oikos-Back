@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -50,7 +51,15 @@ public class TareaController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
-  
+  @PutMapping("/{idTarea}")
+    public ResponseEntity<Tarea> updateTarea(@PathVariable Integer idTarea, @RequestBody Tarea tareaDetails) {
+        try {
+            Tarea updatedTarea = tareaService.updateTarea(idTarea, tareaDetails);
+            return new ResponseEntity<>(updatedTarea, HttpStatus.OK);
+        } catch (TareaNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @DeleteMapping("/{idTarea}")
     public ResponseEntity<Void> deleteTarea(@PathVariable Integer idTarea) {
         try {
