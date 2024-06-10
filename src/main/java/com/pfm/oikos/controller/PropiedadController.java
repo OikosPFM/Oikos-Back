@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pfm.oikos.entity.Finca;
 import com.pfm.oikos.entity.Propiedad;
 import com.pfm.oikos.exception.PropiedadNotFoundException;
 import com.pfm.oikos.service.PropiedadService;
