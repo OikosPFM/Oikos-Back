@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -24,6 +26,7 @@ public class Evento {
     private Integer idEvento;
 
     @ManyToOne
+    @JsonBackReference 
     @JoinColumn(name = "idInstalacion")
     private Instalacion instalacion;
 
