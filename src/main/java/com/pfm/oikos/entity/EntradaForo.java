@@ -28,6 +28,7 @@ public class EntradaForo {
     @JoinColumn(name = "idAutor")
     private Usuario autor;
 
+    private String nombre;
     private String titulo;
     private String textoComentario;
     private LocalDate fecha;
@@ -62,6 +63,14 @@ public class EntradaForo {
 
     public void setAutor(Usuario autor) {
         this.autor = autor;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getTitulo() {
@@ -110,6 +119,14 @@ public class EntradaForo {
 
     public void setEncuesta(Encuesta encuesta) {
         this.encuesta = encuesta;
+    }
+
+    public Object getContenido() {
+        throw new UnsupportedOperationException("Unimplemented method 'getContenido'");
+    }
+
+    public void setContenido(Object contenido) {
+        throw new UnsupportedOperationException("Unimplemented method 'setContenido'");
     }
 }
 
