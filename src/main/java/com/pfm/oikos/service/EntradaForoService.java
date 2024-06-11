@@ -21,7 +21,7 @@ public class EntradaForoService {
 
   public EntradaForo getEntradaForo(Integer idEntrada) throws EntradaForoNotFoundException {
     return entradaForoRepository.findById(idEntrada)
-      .orElseThrow(() -> new EntradaForoNotFoundException("EntradaForo not found with id: " + idEntrada));
+        .orElseThrow(() -> new EntradaForoNotFoundException("EntradaForo not found with id: " + idEntrada));
   }
 
   public List<EntradaForo> getAllEntradasForo() {
@@ -36,11 +36,13 @@ public class EntradaForoService {
     }
   }
 
-  public EntradaForo updateEntradaForo(Integer idEntrada, EntradaForo nuevaEntradaForo) throws EntradaForoNotFoundException {
-    return entradaForoRepository.findById(idEntrada).map(entradaForo -> {
-      entradaForo.setTitulo(nuevaEntradaForo.getTitulo());
-      entradaForo.setContenido(nuevaEntradaForo.getContenido());
-      return entradaForoRepository.save(entradaForo);
-    }).orElseThrow(() -> new EntradaForoNotFoundException("EntradaForo not found with id: " + idEntrada));
-  }
+  // public EntradaForo updateEntradaForo(Integer idEntrada, EntradaForo
+  // nuevaEntradaForo) throws EntradaForoNotFoundException {
+  // return entradaForoRepository.findById(idEntrada).map(entradaForo -> {
+  // entradaForo.setTitulo(nuevaEntradaForo.getTitulo());
+  // entradaForo.setContenido(nuevaEntradaForo.getContenido());
+  // return entradaForoRepository.save(entradaForo);
+  // }).orElseThrow(() -> new EntradaForoNotFoundException("EntradaForo not found
+  // with id: " + idEntrada));
+  // }
 }
