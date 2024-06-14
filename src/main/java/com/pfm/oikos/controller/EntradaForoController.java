@@ -31,9 +31,10 @@ public class EntradaForoController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public EntradaForo createEntradaForo(@RequestBody EntradaForo entradaForo) {
-    EntradaForo newEntradaForo = entradaForoService.saveEntradaForo(entradaForo);
-    return newEntradaForo;
-  }
+      System.out.println("EntradaForo recibida: " + entradaForo);
+      EntradaForo newEntradaForo = entradaForoService.saveEntradaForo(entradaForo);
+      return newEntradaForo;
+}
 
   @GetMapping
   public ResponseEntity<List<EntradaForo>> getEntradasForo() {
@@ -51,18 +52,15 @@ public class EntradaForoController {
     }
   }
 
-  // @PutMapping("/{idEntrada}")
-  // public ResponseEntity<EntradaForo>
-  // updateEntradaForo(@PathVariable("idEntrada") Integer idEntrada,
-  // @RequestBody EntradaForo entradaForo) {
-  // try {
-  // EntradaForo updatedEntradaForo =
-  // entradaForoService.updateEntradaForo(idEntrada, entradaForo);
-  // return new ResponseEntity<>(updatedEntradaForo, HttpStatus.OK);
-  // } catch (EntradaForoNotFoundException exception) {
-  // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-  // }
-  // }
+  @PutMapping("/{idEntrada}")
+    public ResponseEntity<EntradaForo> updateEntradaForo(@PathVariable Integer idEntrada, @RequestBody EntradaForo entradaDetails) {
+        try {
+            EntradaForo updatedEntradaForo = entradaForoService.updateEntradaForo(idEntrada, entradaDetails);
+            return new ResponseEntity<>(updatedEntradaForo, HttpStatus.OK);
+        } catch (EntradaForoNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+  }
 
   @DeleteMapping("/{idEntrada}")
   public ResponseEntity<HttpStatus> deleteEntradaForo(@PathVariable("idEntrada") Integer idEntrada) {
@@ -75,5 +73,11 @@ public class EntradaForoController {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  // @GetMapping("/entradas")
+  // public Page<EntradaForo> getEntradasPaginadas(@RequestParam(defaultValue = "0") int page, 
+  //                                               @RequestParam(defaultValue = "5") int size) {
+  //     return entradaForoService.getEntradasPaginadas(page, size);
+  // }
 
 }
