@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,13 +31,14 @@ public class InstalacionController {
 
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping
-  public ResponseEntity<List<Instalacion>> getAllFincas() {
+  public ResponseEntity<List<Instalacion>> getAllInstalaciones() {
       List<Instalacion> instalaciones = instalacionService.getAllInstalaciones();
       for(int i=0;i<instalaciones.size();i++) {
       }
       return new ResponseEntity<>(instalaciones, HttpStatus.OK);
   }
   
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Instalacion createInstalacion(@RequestBody Instalacion instalacion) {
@@ -53,6 +56,7 @@ public class InstalacionController {
     }
   }
 
+  @CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.DELETE, RequestMethod.OPTIONS })
   @DeleteMapping("/{idInstalacion}")
   public ResponseEntity<HttpStatus> deleteInstalacion(@PathVariable("idInstalacion") Integer idInstalacion) {
     try {
@@ -65,5 +69,15 @@ public class InstalacionController {
     }
   }
 
+  @CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.PUT, RequestMethod.OPTIONS })
+  @PutMapping("/{idInstalacion}")
+  public ResponseEntity<Instalacion> updateInstalacion(@PathVariable Integer idInstalacion, @RequestBody Instalacion instalacionDetails) {
+      try {
+          Instalacion updatedInstalacion = instalacionService.updateInstalacion(idInstalacion, instalacionDetails);
+          return new ResponseEntity<>(updatedInstalacion, HttpStatus.OK);
+      } catch (InstalacionNotFoundException exception) {
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+  }
 }
 

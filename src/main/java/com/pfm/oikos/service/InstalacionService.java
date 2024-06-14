@@ -1,6 +1,7 @@
 package com.pfm.oikos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,4 +37,42 @@ public class InstalacionService {
   public List<Instalacion> getAllInstalaciones() {
       return instalacionRepository.findAll();
   }
+  
+  public Instalacion updateInstalacion(Integer idInstalacion, Instalacion instalacionDetails) throws InstalacionNotFoundException {
+	    Optional<Instalacion> optionalInstalacion = instalacionRepository.findById(idInstalacion);
+
+	    if (optionalInstalacion.isPresent()) {
+	        Instalacion existingInstalacion = optionalInstalacion.get();
+
+	        // Update only the provided fields
+	        if (instalacionDetails.getFinca() != null) {
+	            existingInstalacion.setFinca(instalacionDetails.getFinca());
+	        }
+	        if (instalacionDetails.getNombre() != null) {
+	            existingInstalacion.setNombre(instalacionDetails.getNombre());
+	        }
+	        if (instalacionDetails.getDiasAbierto() != null) {
+	            existingInstalacion.setDiasAbierto(instalacionDetails.getDiasAbierto());
+	        }
+	        if (instalacionDetails.getHorarioApertura() != null) {
+	            existingInstalacion.setHorarioApertura(instalacionDetails.getHorarioApertura());
+	        }
+	        if (instalacionDetails.getHorarioCierre() != null) {
+	            existingInstalacion.setHorarioCierre(instalacionDetails.getHorarioCierre());
+	        }
+	        if (instalacionDetails.getIntervalo() != null) {
+	            existingInstalacion.setIntervalo(instalacionDetails.getIntervalo());
+	        }
+	        if (instalacionDetails.getPlazasIntervalo() != null) {
+	            existingInstalacion.setPlazasIntervalo(instalacionDetails.getPlazasIntervalo());
+	        }
+	        if (instalacionDetails.getInvitacionesMensualesMaximas() != null) {
+	            existingInstalacion.setInvitacionesMensualesMaximas(instalacionDetails.getInvitacionesMensualesMaximas());
+	        }
+
+	        return instalacionRepository.save(existingInstalacion);
+	    } else {
+	        throw new InstalacionNotFoundException("Instalacion not found with id: " + idInstalacion);
+	    }
+	}
 }
