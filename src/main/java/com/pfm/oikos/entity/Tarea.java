@@ -23,7 +23,6 @@ public class Tarea {
 
     @ManyToOne
     @JoinColumn(name = "ID_instalacion")
-    @JsonBackReference("instalacion")
     private Instalacion instalacion;
 
     private String nombre;
@@ -31,7 +30,7 @@ public class Tarea {
     private LocalDate fecha;
     private LocalTime duracion;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "ID_usuario_asignado")
     @JsonBackReference("usuarioAsignado")
     private Usuario usuarioAsignado;
