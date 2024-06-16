@@ -42,9 +42,9 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        req->req.requestMatchers("/login/**","/register/**", "/refresh_token/**")
+                        req->req.requestMatchers("/login/**","/register/**", "/refresh_token/**", "/api/v1/fincas/**", "/api/v1/fincas/**", "api/v1/propiedades/**" )
                                 .permitAll()
-                                .requestMatchers("/admin_only/**", "/api/v1/fincas").hasAuthority("ADMIN")
+                                .requestMatchers("/admin_only/**").hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)
