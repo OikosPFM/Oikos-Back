@@ -199,4 +199,11 @@ public class Usuario implements UserDetails {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+	
+	public Integer getFincaId() {
+	    if (propiedad != null) {
+	        return propiedad.getFinca().getIdFinca();
+	    }
+	    return null;
+	}
 }

@@ -83,6 +83,9 @@ public class JwtService {
         String token = Jwts
                 .builder()
                 .subject(usuario.getUsername())
+                .claim("idFinca", usuario.getFincaId())  // Add finca ID as a claim
+                .claim("idUsuario", usuario.getIdUsuario())  // Add finca ID as a claim
+                .claim("rol", usuario.getRol())  // Add finca ID as a claim
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 24*60*60*1000 ))
                 .signWith(getSigninKey()) // Usa un método para obtener la clave de firma segura
