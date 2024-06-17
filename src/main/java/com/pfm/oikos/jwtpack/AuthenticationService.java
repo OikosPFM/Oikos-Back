@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -138,23 +139,28 @@ public class AuthenticationService {
 
 
 
-	public AuthenticationResponse authenticate(Usuario request) {
-		authenticationManager.authenticate(
+    public AuthenticationResponse authenticate(Usuario request) {
+        try {
+            // Autenticación de credenciales
+            authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getContraseña()
+                    request.getEmail(),
+                    request.getContraseña()
                 )
-        );
+            );
+        } catch (BadCredentialsException e) {
+            throw new RuntimeException("Invalid credentials");
+        }
 
-        Usuario user = usuarioRepository.findByEmail(request.getEmail()).orElseThrow();
-        
+        Usuario user = usuarioRepository.findByEmail(request.getEmail())
+                            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Verificar el estado del usuario
+        if (!user.getEstado()) {
+            throw new RuntimeException("User is not active");
+        }
+
         String token = jwtService.generateToken(user); 
-        /*String accessToken = jwtService.generateAccessToken(user);
-        String refreshToken = jwtService.generateRefreshToken(user);
-
-        revokeAllTokenByUser(user);
-        saveUserToken(accessToken, refreshToken, user);*/
         return new AuthenticationResponse(token);
-
-        //return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");
-	}}
+    }
+}

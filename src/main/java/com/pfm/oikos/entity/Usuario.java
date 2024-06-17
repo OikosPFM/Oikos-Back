@@ -45,6 +45,8 @@ public class Usuario implements UserDetails {
     private String contraseña;
     private String telefono;
     private String rol;
+    private boolean estado; // Nuevo campo de estado
+
     /*@ManyToMany
     @JoinTable(
         name = "usuarios_roles",
@@ -188,5 +190,13 @@ public class Usuario implements UserDetails {
 
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+
+	public boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 }

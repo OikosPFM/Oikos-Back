@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -40,6 +41,18 @@ public class UsuarioController {
     } catch (UsuarioNotFoundException exception) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+  }
+  
+  @PutMapping("/{idUsuario}/estado")
+  public ResponseEntity<Usuario> updateEstado(@PathVariable Integer idUsuario, @RequestBody Boolean estado) {
+      Usuario usuario = usuarioService.getUsuario(idUsuario);
+      if (usuario != null) {
+          usuario.setEstado(estado);
+          usuarioService.saveUsuario(usuario);
+          return new ResponseEntity<>(usuario, HttpStatus.OK);
+      } else {
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
   }
 
   @DeleteMapping("/{idUsuario}")
