@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,9 +31,8 @@ public class Tarea {
     private LocalDate fecha;
     private LocalTime duracion;
 
-    @ManyToOne(optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "ID_usuario_asignado")
-    @JsonBackReference("usuarioAsignado")
     private Usuario usuarioAsignado;
 
     private boolean tareaAcabada;

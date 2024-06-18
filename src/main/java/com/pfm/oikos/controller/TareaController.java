@@ -20,7 +20,7 @@ import com.pfm.oikos.entity.Tarea;
 import com.pfm.oikos.exception.TareaNotFoundException;
 import com.pfm.oikos.service.TareaService;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "api/v1/tareas")
 public class TareaController {
@@ -39,9 +39,8 @@ public class TareaController {
   public ResponseEntity<List<Tarea>> getTareas() {
     List<Tarea> tareas = tareaService.getAllTareas();
     return new ResponseEntity<>(tareas, HttpStatus.OK);
-}
+  }
 
-  
   @GetMapping("/{idTarea}")
   public ResponseEntity<Tarea> getTarea(@PathVariable("idTarea") Integer idTarea) {
     try {
@@ -51,25 +50,24 @@ public class TareaController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
+
   @PutMapping("/{idTarea}")
-    public ResponseEntity<Tarea> updateTarea(@PathVariable Integer idTarea, @RequestBody Tarea tareaDetails) {
-        try {
-            Tarea updatedTarea = tareaService.updateTarea(idTarea, tareaDetails);
-            return new ResponseEntity<>(updatedTarea, HttpStatus.OK);
-        } catch (TareaNotFoundException exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+  public ResponseEntity<Tarea> updateTarea(@PathVariable Integer idTarea, @RequestBody Tarea tareaDetails) {
+    try {
+      Tarea updatedTarea = tareaService.updateTarea(idTarea, tareaDetails);
+      return new ResponseEntity<>(updatedTarea, HttpStatus.OK);
+    } catch (TareaNotFoundException exception) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @DeleteMapping("/{idTarea}")
-    public ResponseEntity<Void> deleteTarea(@PathVariable Integer idTarea) {
-        try {
-            tareaService.deleteTarea(idTarea);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (TareaNotFoundException exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+  }
+
+  @DeleteMapping("/{idTarea}")
+  public ResponseEntity<Void> deleteTarea(@PathVariable Integer idTarea) {
+    try {
+      tareaService.deleteTarea(idTarea);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    } catch (TareaNotFoundException exception) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+  }
 }
-
-
-
