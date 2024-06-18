@@ -1,0 +1,14 @@
+package com.pfm.oikos.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class MensajeNotFoundException extends RuntimeException {
+    
+    private static final long serialVersionUID = 1L;
+
+    public MensajeNotFoundException(String message) {
+        super(message);
+    }
+}
