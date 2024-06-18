@@ -1,8 +1,11 @@
 package com.pfm.oikos.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pfm.oikos.entity.Finca;
 import com.pfm.oikos.entity.Instalacion;
 import com.pfm.oikos.exception.InstalacionNotFoundException;
 import com.pfm.oikos.repository.InstalacionRepository;
@@ -28,5 +31,9 @@ public class InstalacionService {
     } else {
       throw new InstalacionNotFoundException("Instalacion not found with id: " + idInstalacion);
     }
+  }
+  
+  public List<Instalacion> getAllInstalaciones() {
+      return instalacionRepository.findAll();
   }
 }

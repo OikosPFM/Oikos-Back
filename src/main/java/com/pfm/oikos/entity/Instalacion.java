@@ -3,6 +3,10 @@ package com.pfm.oikos.entity;
 import java.time.LocalTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -43,12 +47,15 @@ public class Instalacion {
     private Integer invitacionesMensualesMaximas;
 
     @OneToMany(mappedBy = "instalacion")
+    @JsonIgnore
     private Set<Reserva> reservas;
 
     @OneToMany(mappedBy = "instalacion")
+    @JsonManagedReference
     private Set<Evento> eventos;
 
     @OneToMany(mappedBy = "instalacion")
+    @JsonIgnore
     private Set<Tarea> tareas;
 
     // Getters and Setters

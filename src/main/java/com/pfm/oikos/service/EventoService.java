@@ -1,9 +1,12 @@
 package com.pfm.oikos.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfm.oikos.entity.Evento;
+import com.pfm.oikos.entity.Instalacion;
 import com.pfm.oikos.exception.EventoNotFoundException;
 import com.pfm.oikos.repository.EventoRepository;
 
@@ -29,5 +32,10 @@ public class EventoService {
       throw new EventoNotFoundException("Evento not found with id: " + idEvento);
     }
   }
+  
+  public List<Evento> getAllEventos() {
+      return eventoRepository.findAll();
+  }
+  
 }
 

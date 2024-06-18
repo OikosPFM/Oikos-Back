@@ -2,6 +2,9 @@ package com.pfm.oikos.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,9 +26,11 @@ public class Finca {
     private String codigoPostal;
 
     @OneToMany(mappedBy = "finca")
+    @JsonManagedReference
     private Set<Propiedad> propiedades;
 
     @OneToMany(mappedBy = "finca")
+    @JsonIgnore
     private Set<Instalacion> instalaciones;
 
     // Getters and Setters

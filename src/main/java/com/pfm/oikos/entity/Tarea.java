@@ -1,41 +1,45 @@
 package com.pfm.oikos.entity;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tarea")
 public class Tarea {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idTarea;
 
     @ManyToOne
-    @JoinColumn(name = "idInstalacion")
+    @JoinColumn(name = "ID_instalacion")
+    @JsonBackReference("instalacion")
     private Instalacion instalacion;
 
-    private String descripcionTarea;
-
-    @Enumerated(EnumType.STRING)
-    private Frecuencia frecuencia;
-
+    private String nombre;
+    private String descripcion;
+    private LocalDate fecha;
     private LocalTime duracion;
 
-    @OneToMany(mappedBy = "tarea")
-    private Set<AsignacionTarea> asignaciones;
+    @ManyToOne
+    @JoinColumn(name = "ID_usuario_asignado")
+    @JsonBackReference("usuarioAsignado")
+    private Usuario usuarioAsignado;
+
+    private boolean tareaAcabada;
 
     // Getters and Setters
+
     public Integer getIdTarea() {
         return idTarea;
     }
@@ -52,20 +56,28 @@ public class Tarea {
         this.instalacion = instalacion;
     }
 
-    public String getDescripcionTarea() {
-        return descripcionTarea;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setDescripcionTarea(String descripcionTarea) {
-        this.descripcionTarea = descripcionTarea;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Frecuencia getFrecuencia() {
-        return frecuencia;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setFrecuencia(Frecuencia frecuencia) {
-        this.frecuencia = frecuencia;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     public LocalTime getDuracion() {
@@ -76,15 +88,19 @@ public class Tarea {
         this.duracion = duracion;
     }
 
-    public Set<AsignacionTarea> getAsignaciones() {
-        return asignaciones;
+    public Usuario getUsuarioAsignado() {
+        return usuarioAsignado;
     }
 
-    public void setAsignaciones(Set<AsignacionTarea> asignaciones) {
-        this.asignaciones = asignaciones;
+    public void setUsuarioAsignado(Usuario usuarioAsignado) {
+        this.usuarioAsignado = usuarioAsignado;
     }
-}
 
-enum Frecuencia {
-    diaria, semanal, mensual, anual
+    public boolean isTareaAcabada() {
+        return tareaAcabada;
+    }
+
+    public void setTareaAcabada(boolean tareaAcabada) {
+        this.tareaAcabada = tareaAcabada;
+    }
 }
