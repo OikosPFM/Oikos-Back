@@ -25,6 +25,10 @@ public class InstalacionService {
     return instalacionRepository.findById(idInstalacion)
       .orElseThrow(() -> new InstalacionNotFoundException("Instalacion not found with id: " + idInstalacion));
   }
+  
+  public List<Instalacion> getInstalacionesByFincaID(Integer fincaID) {
+      return instalacionRepository.findByFinca_IdFinca(fincaID);
+  }
 
   public void deleteInstalacion(Integer idInstalacion) throws InstalacionNotFoundException {
     if (instalacionRepository.existsById(idInstalacion)) {
@@ -39,40 +43,35 @@ public class InstalacionService {
   }
   
   public Instalacion updateInstalacion(Integer idInstalacion, Instalacion instalacionDetails) throws InstalacionNotFoundException {
-	    Optional<Instalacion> optionalInstalacion = instalacionRepository.findById(idInstalacion);
+      Instalacion instalacion = instalacionRepository.findById(idInstalacion)
+              .orElseThrow(() -> new InstalacionNotFoundException("Instalación no encontrada con ID: " + idInstalacion));
 
-	    if (optionalInstalacion.isPresent()) {
-	        Instalacion existingInstalacion = optionalInstalacion.get();
+      // Actualiza solo los campos que no son nulos en instalacionDetails
+      if (instalacionDetails.getNombre() != null) {
+          instalacion.setNombre(instalacionDetails.getNombre());
+      }
+      if (instalacionDetails.getDiasAbierto() != null) {
+          instalacion.setDiasAbierto(instalacionDetails.getDiasAbierto());
+      }
+      if (instalacionDetails.getHorarioApertura() != null) {
+          instalacion.setHorarioApertura(instalacionDetails.getHorarioApertura());
+      }
+      if (instalacionDetails.getHorarioCierre() != null) {
+          instalacion.setHorarioCierre(instalacionDetails.getHorarioCierre());
+      }
+      if (instalacionDetails.getIntervalo() != null) {
+          instalacion.setIntervalo(instalacionDetails.getIntervalo());
+      }
+      if (instalacionDetails.getPlazasIntervalo() != null) {
+          instalacion.setPlazasIntervalo(instalacionDetails.getPlazasIntervalo());
+      }
+      if (instalacionDetails.getInvitacionesMensualesMaximas() != null) {
+          instalacion.setInvitacionesMensualesMaximas(instalacionDetails.getInvitacionesMensualesMaximas());
+      }
+      // Añade aquí más campos que desees actualizar
 
-	        // Update only the provided fields
-	        if (instalacionDetails.getFinca() != null) {
-	            existingInstalacion.setFinca(instalacionDetails.getFinca());
-	        }
-	        if (instalacionDetails.getNombre() != null) {
-	            existingInstalacion.setNombre(instalacionDetails.getNombre());
-	        }
-	        if (instalacionDetails.getDiasAbierto() != null) {
-	            existingInstalacion.setDiasAbierto(instalacionDetails.getDiasAbierto());
-	        }
-	        if (instalacionDetails.getHorarioApertura() != null) {
-	            existingInstalacion.setHorarioApertura(instalacionDetails.getHorarioApertura());
-	        }
-	        if (instalacionDetails.getHorarioCierre() != null) {
-	            existingInstalacion.setHorarioCierre(instalacionDetails.getHorarioCierre());
-	        }
-	        if (instalacionDetails.getIntervalo() != null) {
-	            existingInstalacion.setIntervalo(instalacionDetails.getIntervalo());
-	        }
-	        if (instalacionDetails.getPlazasIntervalo() != null) {
-	            existingInstalacion.setPlazasIntervalo(instalacionDetails.getPlazasIntervalo());
-	        }
-	        if (instalacionDetails.getInvitacionesMensualesMaximas() != null) {
-	            existingInstalacion.setInvitacionesMensualesMaximas(instalacionDetails.getInvitacionesMensualesMaximas());
-	        }
+      // Guarda y retorna la instalación actualizada
+      return instalacionRepository.save(instalacion);
+  }
 
-	        return instalacionRepository.save(existingInstalacion);
-	    } else {
-	        throw new InstalacionNotFoundException("Instalacion not found with id: " + idInstalacion);
-	    }
-	}
 }
