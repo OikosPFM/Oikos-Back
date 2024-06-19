@@ -16,11 +16,11 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRol;
 
-    private String nombreRol;
+    private String name;
     private String descripcion;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<Usuario> usuarios;
+    /*@ManyToMany(mappedBy = "roles")
+    private Set<Usuario> usuarios;*/
 
     // Getters and Setters
     public Integer getIdRol() {
@@ -32,11 +32,11 @@ public class Rol {
     }
 
     public String getNombreRol() {
-        return nombreRol;
+        return name;
     }
 
     public void setNombreRol(String nombreRol) {
-        this.nombreRol = nombreRol;
+        this.name = nombreRol;
     }
 
     public String getDescripcion() {
@@ -47,11 +47,11 @@ public class Rol {
         this.descripcion = descripcion;
     }
 
-    public Set<Usuario> getUsuarios() {
+   /* public Set<Usuario> getUsuarios() {
         return usuarios;
     }
 
     public void setUsuarios(Set<Usuario> usuarios) {
         this.usuarios = usuarios;
-    }
+    }*/
 }
