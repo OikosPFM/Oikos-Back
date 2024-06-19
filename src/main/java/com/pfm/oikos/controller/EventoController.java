@@ -46,6 +46,7 @@ public class EventoController {
     return newEvento;
   }
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/{idEvento}")
   public ResponseEntity<Evento> getEvento(@PathVariable("idEvento") Integer idEvento) {
     try {

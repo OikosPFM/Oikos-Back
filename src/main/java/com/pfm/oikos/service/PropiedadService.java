@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pfm.oikos.entity.Finca;
 import com.pfm.oikos.entity.Propiedad;
 import com.pfm.oikos.exception.PropiedadNotFoundException;
 import com.pfm.oikos.repository.PropiedadRepository;
+
 
 @Service
 public class PropiedadService {
@@ -36,4 +38,11 @@ public class PropiedadService {
   public List<Propiedad> getAllPropiedades() {
       return propiedadRepository.findAll();
   }
+  
+  
+  @Transactional(readOnly = true)
+  public Propiedad findByPortalPisoLetra(String portal, String numeroPiso, String letra) {
+  return propiedadRepository.findByPortalAndNumeroPisoAndLetra(portal, numeroPiso, letra);
+  }
+  
 }
