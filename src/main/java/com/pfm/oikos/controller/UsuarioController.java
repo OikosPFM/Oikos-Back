@@ -18,6 +18,7 @@ import com.pfm.oikos.entity.Usuario;
 import com.pfm.oikos.exception.UsuarioNotFoundException;
 import com.pfm.oikos.service.UsuarioService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "api/v1/usuarios")
 public class UsuarioController {
@@ -25,7 +26,6 @@ public class UsuarioController {
   @Autowired
   private UsuarioService usuarioService;
 
-  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Usuario createUsuario(@RequestBody Usuario usuario) {
@@ -68,4 +68,3 @@ public class UsuarioController {
   }
 
 }
-
