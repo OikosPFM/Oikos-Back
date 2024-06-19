@@ -26,6 +26,10 @@ public class EventoService {
       .orElseThrow(() -> new EventoNotFoundException("Evento not found with id: " + idEvento));
   }
 
+  public List<Evento> getEventosByFincaID(Integer fincaID) {
+      return eventoRepository.findByFinca_IdFinca(fincaID);
+  }
+  
   public void deleteEvento(Integer idEvento) throws EventoNotFoundException {
     if (eventoRepository.existsById(idEvento)) {
       eventoRepository.deleteById(idEvento);
@@ -37,6 +41,8 @@ public class EventoService {
   public List<Evento> getAllEventos() {
       return eventoRepository.findAll();
   }
+  
+  
   
   public Evento updateEvento(Integer idEvento, Evento eventoDetails) throws EventoNotFoundException {
       Optional<Evento> optionalEvento = eventoRepository.findById(idEvento);

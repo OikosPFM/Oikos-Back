@@ -37,6 +37,12 @@ public class EventoController {
       return new ResponseEntity<>(eventos, HttpStatus.OK);
   }
   
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/finca/{id}")
+  public ResponseEntity<List<Evento>> getEventosByFincaId(@PathVariable("id") Integer fincaId) {
+      List<Evento> eventos = eventoService.getEventosByFincaID(fincaId);
+      return new ResponseEntity<>(eventos, HttpStatus.OK);
+  }
   
   @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping
