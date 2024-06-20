@@ -3,6 +3,7 @@ package com.pfm.oikos.entity;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -31,7 +32,7 @@ public class Propiedad {
     private String letra;
 
     @OneToMany(mappedBy = "propiedad")
-    @JsonManagedReference
+    @JsonIgnoreProperties("propiedad") // Evita referencia cíclica
     private Set<Usuario> usuarios;
 
     // Getters and Setters

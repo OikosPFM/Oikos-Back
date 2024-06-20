@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -50,13 +51,16 @@ public class Instalacion {
     @JsonIgnore
     private Set<Reserva> reservas;
 
-    @OneToMany(mappedBy = "instalacion")
-    @JsonManagedReference
-    private Set<Evento> eventos;
+
 
     @OneToMany(mappedBy = "instalacion")
     @JsonIgnore
     private Set<Tarea> tareas;
+    
+
+    @OneToMany(mappedBy = "instalacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Evento> eventos;
 
     // Getters and Setters
     public Integer getIdInstalacion() {
@@ -139,13 +143,7 @@ public class Instalacion {
         this.reservas = reservas;
     }
 
-    public Set<Evento> getEventos() {
-        return eventos;
-    }
 
-    public void setEventos(Set<Evento> eventos) {
-        this.eventos = eventos;
-    }
 
     public Set<Tarea> getTareas() {
         return tareas;
@@ -153,5 +151,13 @@ public class Instalacion {
 
     public void setTareas(Set<Tarea> tareas) {
         this.tareas = tareas;
+    }
+    
+    public Set<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(Set<Evento> eventos) {
+        this.eventos = eventos;
     }
 }

@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,16 +27,21 @@ public class Evento {
     private Integer idEvento;
 
     @ManyToOne
-    @JsonBackReference 
     @JoinColumn(name = "idInstalacion")
     private Instalacion instalacion;
 
+    
     @ManyToOne
     @JoinColumn(name = "idOrganizador")
     private Usuario organizador;
+    
 
     private String titulo;
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
+    
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime hora;
     private String descripcion;
 
@@ -141,6 +147,7 @@ public class Evento {
     public void setAsistentes(Set<Usuario> asistentes) {
         this.asistentes = asistentes;
     }
+
 }
 
 enum Categoria {
