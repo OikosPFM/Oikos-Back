@@ -40,5 +40,16 @@ public class UsuarioService {
 	            usuario.getPropiedad().getFinca().getIdFinca().equals(fincaId))
 	        .collect(Collectors.toList());
 	}
+  
+  public Usuario updateUsuarioEstado(Integer idUsuario) throws UsuarioNotFoundException {
+      Usuario usuario = usuarioRepository.findById(idUsuario)
+              .orElseThrow(() -> new UsuarioNotFoundException("Usuario no encontrado con ID: " + idUsuario));
+
+      usuario.setEstado(true);
+
+      return usuarioRepository.save(usuario);
+  }
 }
+
+
 
