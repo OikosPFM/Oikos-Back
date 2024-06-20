@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.pfm.oikos.jwtpack.Token;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +35,7 @@ public class Usuario implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "idPropiedad")
-    @JsonBackReference
+    @JsonIgnoreProperties("usuarios") // Evita referencia cíclica
     private Propiedad propiedad;
 
     private String dni;

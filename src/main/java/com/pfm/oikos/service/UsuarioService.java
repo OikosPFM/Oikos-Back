@@ -1,5 +1,8 @@
 package com.pfm.oikos.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +32,13 @@ public class UsuarioService {
       throw new UsuarioNotFoundException("Usuario not found with id: " + idUsuario);
     }
   }
+  
+  public List<Usuario> getUsuariosByFincaId(Integer fincaId) {
+	    List<Usuario> usuarios = usuarioRepository.findAll();
+	    return usuarios.stream()
+	        .filter(usuario -> usuario.getPropiedad() != null && // Check for null propiedad
+	            usuario.getPropiedad().getFinca().getIdFinca().equals(fincaId))
+	        .collect(Collectors.toList());
+	}
 }
 

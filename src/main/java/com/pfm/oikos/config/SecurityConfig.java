@@ -43,7 +43,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        req->req.requestMatchers("/login/**", "/register/**", "/api/v1/fincas/**").permitAll()  // Allow access to these paths without authorization
+                        req->req.requestMatchers("/login/**", "/register/**", "/api/v1/fincas/**", "/api/v1/propiedades/**").permitAll()  // Allow access to these paths without authorization
                         		.requestMatchers(HttpMethod.DELETE, "/api/v1/eventos/**").hasAuthority("ADMIN")      
                         		.requestMatchers(HttpMethod.POST, "/api/v1/eventos/**").hasAuthority("ADMIN")   
                                 .requestMatchers(HttpMethod.PATCH, "/api/v1/eventos/**\"").hasAuthority("ADMIN")                    

@@ -1,5 +1,7 @@
 package com.pfm.oikos.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,5 +69,11 @@ public class UsuarioController {
     }
   }
 
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/finca/{fincaId}")
+  public ResponseEntity<List<Usuario>> getUsuariosByFincaId(@PathVariable("fincaId") Integer fincaId) {
+      List<Usuario> usuarios = usuarioService.getUsuariosByFincaId(fincaId);
+      return new ResponseEntity<>(usuarios, HttpStatus.OK);
+  }
 }
 
