@@ -35,10 +35,6 @@ public class Evento {
     @JoinColumn(name = "idOrganizador")
     private Usuario organizador;
     
-    @ManyToOne
-    @JoinColumn(name = "idFinca")
-    private Finca finca;
-
 
     private String titulo;
     
@@ -151,13 +147,7 @@ public class Evento {
     public void setAsistentes(Set<Usuario> asistentes) {
         this.asistentes = asistentes;
     }
-    public Finca getFinca() {
-        return finca;
-    }
 
-    public void setFinca(Finca finca) {
-        this.finca = finca;
-    }
 }
 
 enum Categoria {

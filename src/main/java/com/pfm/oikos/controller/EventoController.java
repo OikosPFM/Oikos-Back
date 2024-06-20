@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pfm.oikos.entity.Evento;
 import com.pfm.oikos.entity.Instalacion;
+import com.pfm.oikos.entity.Usuario;
 import com.pfm.oikos.exception.EventoNotFoundException;
 import com.pfm.oikos.exception.InstalacionNotFoundException;
 import com.pfm.oikos.service.EventoService;
@@ -40,9 +41,9 @@ public class EventoController {
   }
   
   @CrossOrigin(origins = "http://localhost:4200")
-  @GetMapping("/finca/{id}")
-  public ResponseEntity<List<Evento>> getEventosByFincaId(@PathVariable("id") Integer fincaId) {
-      List<Evento> eventos = eventoService.getEventosByFincaID(fincaId);
+  @GetMapping("/finca/{fincaId}")
+  public ResponseEntity<List<Evento>> getEventosByFincaId(@PathVariable("fincaId") Integer fincaId) {
+      List<Evento> eventos = eventoService.getEventosByFincaId(fincaId);
       return new ResponseEntity<>(eventos, HttpStatus.OK);
   }
   

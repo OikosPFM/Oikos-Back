@@ -2,12 +2,14 @@ package com.pfm.oikos.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfm.oikos.entity.Evento;
 import com.pfm.oikos.entity.Instalacion;
+import com.pfm.oikos.entity.Usuario;
 import com.pfm.oikos.exception.EventoNotFoundException;
 import com.pfm.oikos.repository.EventoRepository;
 
@@ -26,9 +28,14 @@ public class EventoService {
       .orElseThrow(() -> new EventoNotFoundException("Evento not found with id: " + idEvento));
   }
 
-  public List<Evento> getEventosByFincaID(Integer fincaID) {
-      return eventoRepository.findByFinca_IdFinca(fincaID);
-  }
+  public List<Evento> getEventosByFincaId(Integer fincaId) {
+	    List<Evento> eventos = eventoRepository.findAll();
+	    return eventos.stream()
+	        .filter(evento -> evento.getInstalacion() != null && // Check for null propiedad
+	            evento.getInstalacion().getFinca().getIdFinca().equals(fincaId))
+	        .collect(Collectors.toList());
+	}
+
   
   public void deleteEvento(Integer idEvento) throws EventoNotFoundException {
     if (eventoRepository.existsById(idEvento)) {
@@ -75,9 +82,6 @@ public class EventoService {
       }
       if (eventoDetails.getOrganizador() != null) {
           evento.setOrganizador(eventoDetails.getOrganizador());
-      }
-      if (eventoDetails.getFinca() != null) {
-          evento.setFinca(eventoDetails.getFinca());
       }
       if (eventoDetails.getAsistentes() != null) {
           evento.setAsistentes(eventoDetails.getAsistentes());
