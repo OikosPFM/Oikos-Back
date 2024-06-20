@@ -50,7 +50,8 @@ public class SecurityConfig {
                         		.requestMatchers(HttpMethod.POST, "/api/v1/instalaciones/**").hasAuthority("ADMIN")  // Require ADMIN role for POST to /api/v1/instalaciones/
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/instalaciones/**").hasAuthority("ADMIN")      
                                 .requestMatchers(HttpMethod.PATCH, "/api/v1/instalaciones/**").hasAuthority("ADMIN")   
-                                .requestMatchers(HttpMethod.PATCH, "/api/v1/usuarios/**\"").hasAuthority("ADMIN")                    
+                                .requestMatchers(HttpMethod.PATCH, "/api/v1/usuarios/**\"").hasAuthority("ADMIN")       
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/usuarios/**\"").hasAuthority("ADMIN")                    
                                 .requestMatchers("/admin_only/**").hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
