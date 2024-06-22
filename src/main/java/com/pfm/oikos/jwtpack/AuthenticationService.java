@@ -36,11 +36,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(Usuario request) {
         // check if user already exist. if exist then authenticate the user
-        /*
-         * if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
-         * return new AuthenticationResponse(null, "User already exists");
-         * }
-         */
+
         // Crear un nuevo usuario basado en la entidad Usuario
         Usuario usuario = new Usuario();
         usuario.setNombre(request.getNombre());
@@ -71,67 +67,6 @@ public class AuthenticationService {
 
         return new AuthenticationResponse(token);
     }
-
-    /*
-     * private void revokeAllTokenByUser(Usuario usuario) {
-     * List<Token> validTokens =
-     * tokenRepository.findAllAccessTokensByUser(usuario.getIdUsuario());
-     * if(validTokens.isEmpty()) {
-     * return;
-     * }
-     * 
-     * validTokens.forEach(t-> {
-     * t.setLoggedOut(true);
-     * });
-     * 
-     * tokenRepository.saveAll(validTokens);
-     * }
-     * private void saveUserToken(String accessToken, String refreshToken, Usuario
-     * usuario) {
-     * Token token = new Token();
-     * token.setAccessToken(accessToken);
-     * token.setRefreshToken(refreshToken);
-     * token.setLoggedOut(false);
-     * token.setUsuario(usuario);
-     * tokenRepository.save(token);
-     * }
-     * 
-     * public ResponseEntity refreshToken(
-     * HttpServletRequest request,
-     * HttpServletResponse response) {
-     * // extract the token from authorization header
-     * String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-     * 
-     * if(authHeader == null || !authHeader.startsWith("Bearer ")) {
-     * return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-     * }
-     * 
-     * String token = authHeader.substring(7);
-     * 
-     * // extract username from token
-     * String email = jwtService.extractUsername(token);
-     * 
-     * // check if the user exist in database
-     * Usuario usuario = usuarioRepository.findByEmail(email)
-     * .orElseThrow(()->new RuntimeException("No user found"));
-     * 
-     * // check if the token is valid
-     * if(jwtService.isValidRefreshToken(token, usuario)) {
-     * // generate access token
-     * String accessToken = jwtService.generateAccessToken(usuario);
-     * String refreshToken = jwtService.generateRefreshToken(usuario);
-     * 
-     * revokeAllTokenByUser(usuario);
-     * saveUserToken(accessToken, refreshToken, usuario);
-     * 
-     * return new ResponseEntity(new AuthenticationResponse(accessToken,
-     * refreshToken, "New token generated"), HttpStatus.OK);
-     * }
-     * 
-     * return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-     * 
-     * }
-     */
 
     public AuthenticationResponse authenticate(Usuario request) {
         try {

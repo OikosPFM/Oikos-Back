@@ -26,16 +26,4 @@ public class AuthenticationController {
             @RequestBody Usuario request) {
         return ResponseEntity.ok(authService.authenticate(request));
     }
-
-    /*
-     * @SuppressWarnings("rawtypes")
-     * 
-     * @PostMapping("/refresh_token")
-     * public ResponseEntity refreshToken(
-     * HttpServletRequest request,
-     * HttpServletResponse response
-     * ) {
-     * return authService.refreshToken(request, response);
-     * }
-     */
 }
