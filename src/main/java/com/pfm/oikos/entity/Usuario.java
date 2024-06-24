@@ -48,18 +48,22 @@ public class Usuario implements UserDetails {
     private String rol;
     private boolean estado; // Nuevo campo de estado
 
-    /*@ManyToMany
-    @JoinTable(
-        name = "usuarios_roles",
-        joinColumns = @JoinColumn(name = "idUsuario"),
-        inverseJoinColumns = @JoinColumn(name = "idRol")
-    )
-    private Set<Rol> roles;*/
-    
-    /*@OneToMany(mappedBy = "usuario")
-    private List<Token> tokens;*/
+    /*
+     * @ManyToMany
+     * 
+     * @JoinTable(
+     * name = "usuarios_roles",
+     * joinColumns = @JoinColumn(name = "idUsuario"),
+     * inverseJoinColumns = @JoinColumn(name = "idRol")
+     * )
+     * private Set<Rol> roles;
+     */
 
-    
+    /*
+     * @OneToMany(mappedBy = "usuario")
+     * private List<Token> tokens;
+     */
+
     // Getters and Setters
     public Integer getIdUsuario() {
         return idUsuario;
@@ -133,20 +137,26 @@ public class Usuario implements UserDetails {
         this.telefono = telefono;
     }
 
-   /* public Set<Rol> getRoles() {
-        return roles;
-    }
+    /*
+     * public Set<Rol> getRoles() {
+     * return roles;
+     * }
+     * 
+     * public void setRoles(Set<Rol> roles) {
+     * this.roles = roles;
+     * }
+     */
 
-    public void setRoles(Set<Rol> roles) {
-        this.roles = roles;
-    }*/
-
-    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        /*return rol.stream()
-            .map(rol -> new SimpleGrantedAuthority(rol.getNombreRol()))
-            .collect(Collectors.toList());*/
+        if (rol == null || rol.isEmpty()) {
+            return Collections.emptyList();
+        }
+        /*
+         * return rol.stream()
+         * .map(rol -> new SimpleGrantedAuthority(rol.getNombreRol()))
+         * .collect(Collectors.toList());
+         */
         return Collections.singletonList(new SimpleGrantedAuthority(rol));
 
     }
@@ -161,51 +171,50 @@ public class Usuario implements UserDetails {
         return email;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-	@Override
-	 public boolean isAccountNonLocked() {
-	  // TODO Auto-generated method stub
-	  return true;
-	 }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-	 @Override
-	 public boolean isCredentialsNonExpired() {
-	  // TODO Auto-generated method stub
-	  return true;
-	 }
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-	 @Override
-	 public boolean isEnabled() {
-	  // TODO Auto-generated method stub
-	  return true;
-	 }
+    public String getRol() {
+        return rol;
+    }
 
-	public String getRol() {
-		return rol;
-	}
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
+    public boolean getEstado() {
+        return estado;
+    }
 
-	public boolean getEstado() {
-		return estado;
-	}
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-	
-	public Integer getFincaId() {
-	    if (propiedad != null) {
-	        return propiedad.getFinca().getIdFinca();
-	    }
-	    return null;
-	}
+    public Integer getFincaId() {
+        if (propiedad != null) {
+            return propiedad.getFinca().getIdFinca();
+        }
+        return null;
+    }
 }

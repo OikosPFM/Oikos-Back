@@ -16,8 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 //import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.pfm.oikos.jwtpack.UserDetailsServiceImp;
+
 import com.pfm.oikos.jwtpack.JwtAuthenticationFilter;
+import com.pfm.oikos.jwtpack.UserDetailsServiceImp;
 
 @Configuration
 @EnableWebSecurity
@@ -43,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req -> req
                                 .requestMatchers("/login/**", "/register/**", "/api/v1/fincas/**",
-                                        "/api/v1/propiedades/**")
+                                        "/api/v1/propiedades/**", "/api/v1/entradasForo/**")
                                 .permitAll() // Allow access to these paths without authorization
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/eventos/**").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/api/v1/eventos/**").hasAuthority("ADMIN")
