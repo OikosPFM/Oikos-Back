@@ -2,16 +2,11 @@ package com.pfm.oikos.entity;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-//import com.pfm.oikos.jwtpack.Token;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -19,10 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -46,25 +38,8 @@ public class Usuario implements UserDetails {
     private String contraseña;
     private String telefono;
     private String rol;
-    private boolean estado; // Nuevo campo de estado
+    private boolean estado;
 
-    /*
-     * @ManyToMany
-     * 
-     * @JoinTable(
-     * name = "usuarios_roles",
-     * joinColumns = @JoinColumn(name = "idUsuario"),
-     * inverseJoinColumns = @JoinColumn(name = "idRol")
-     * )
-     * private Set<Rol> roles;
-     */
-
-    /*
-     * @OneToMany(mappedBy = "usuario")
-     * private List<Token> tokens;
-     */
-
-    // Getters and Setters
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -136,16 +111,6 @@ public class Usuario implements UserDetails {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    /*
-     * public Set<Rol> getRoles() {
-     * return roles;
-     * }
-     * 
-     * public void setRoles(Set<Rol> roles) {
-     * this.roles = roles;
-     * }
-     */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
