@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pfm.oikos.entity.Mensaje;
+import com.pfm.oikos.exception.MensajeNotFoundException;
 import com.pfm.oikos.repository.MensajeRepository;
 
 @Service
@@ -27,12 +28,24 @@ public class MensajeService {
         return mensajeRepository.findById(id);
     }
 
-    // public Mensaje createMensaje(Mensaje mensaje) {
-    //     return mensajeRepository.save(mensaje);
-    // }
+    public Mensaje updateMensaje(Integer idMensaje, Mensaje mensajeDetails) throws MensajeNotFoundException {
+        Optional<Mensaje> optionalMensaje = mensajeRepository.findById(idMensaje);
+
+        if (optionalMensaje.isPresent()) {
+            Mensaje existingMensaje = optionalMensaje.get();
+
+            existingMensaje.setUsuario(mensajeDetails.getUsuario());
+            existingMensaje.setEntradaForo(mensajeDetails.getEntradaForo());
+            existingMensaje.setCuerpo(mensajeDetails.getCuerpo());
+            existingMensaje.setTiempo(mensajeDetails.getTiempo());
+
+            return mensajeRepository.save(existingMensaje);
+        } else {
+            throw new MensajeNotFoundException("Mensaje not found with id: " + idMensaje);
+        }
+    }
 
     public void deleteMensaje(int id) {
         mensajeRepository.deleteById(id);
     }
 }
-
