@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.pfm.oikos.entity.EntradaForo;
 import com.pfm.oikos.entity.Mensaje;
+import com.pfm.oikos.exception.MensajeNotFoundException;
 import com.pfm.oikos.repository.MensajeRepository;
 
 @Service
@@ -31,9 +32,26 @@ public class MensajeService {
         return mensajeRepository.findById(id);
     }
 
-    // public Mensaje createMensaje(Mensaje mensaje) {
-    //     return mensajeRepository.save(mensaje);
-    // }
+    public Mensaje updateMensaje(Integer idMensaje, Mensaje mensajeDetails) throws MensajeNotFoundException {
+        Mensaje existingMensaje = mensajeRepository.findById(idMensaje)
+                .orElseThrow(() -> new MensajeNotFoundException("Mensaje not found with id: " + idMensaje));
+
+        if (mensajeDetails.getUsuario() != null) {
+            existingMensaje.setUsuario(mensajeDetails.getUsuario());
+        }
+        if (mensajeDetails.getEntradaForo() != null) {
+            existingMensaje.setEntradaForo(mensajeDetails.getEntradaForo());
+        }
+        if (mensajeDetails.getCuerpo() != null) {
+            existingMensaje.setCuerpo(mensajeDetails.getCuerpo());
+        }
+        if (mensajeDetails.getTiempo() != null) {
+            existingMensaje.setTiempo(mensajeDetails.getTiempo());
+        }
+
+        // Save and return the updated mensaje
+        return mensajeRepository.save(existingMensaje);
+    }
 
     public void deleteMensaje(int id) {
         mensajeRepository.deleteById(id);
@@ -46,4 +64,3 @@ public class MensajeService {
         return this.mensajeRepository.findByEntradaForo(entradaForo);
     }
 }
-

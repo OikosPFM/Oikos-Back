@@ -3,9 +3,7 @@ package com.pfm.oikos.entity;
 import java.time.LocalTime;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -34,7 +32,7 @@ public class Instalacion {
     private Finca finca;
 
     private String nombre;
-    
+
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "dias_abierto", joinColumns = @JoinColumn(name = "id_instalacion"))
     @Column(name = "dia")
@@ -51,12 +49,9 @@ public class Instalacion {
     @JsonIgnore
     private Set<Reserva> reservas;
 
-
-
     @OneToMany(mappedBy = "instalacion")
     @JsonIgnore
     private Set<Tarea> tareas;
-    
 
     @OneToMany(mappedBy = "instalacion", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
@@ -143,8 +138,6 @@ public class Instalacion {
         this.reservas = reservas;
     }
 
-
-
     public Set<Tarea> getTareas() {
         return tareas;
     }
@@ -152,7 +145,7 @@ public class Instalacion {
     public void setTareas(Set<Tarea> tareas) {
         this.tareas = tareas;
     }
-    
+
     public Set<Evento> getEventos() {
         return eventos;
     }
