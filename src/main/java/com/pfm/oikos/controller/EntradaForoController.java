@@ -51,6 +51,20 @@ public class EntradaForoController {
     }
   }
 
+  @PutMapping("/{idEntrada}")
+  public ResponseEntity<EntradaForo> updateEntradaForo(@PathVariable Integer idEntrada, @RequestBody EntradaForo entradaForoDetails) {
+    try {
+      EntradaForo updatedEntrada = entradaForoService.updateEntradaForo(idEntrada, entradaForoDetails);
+      return new ResponseEntity<>(updatedEntrada, HttpStatus.OK);
+    } catch (EntradaForoNotFoundException exception) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
+  // @PutMapping("/update/{id}")
+  // public ResponseEntity<EntradaForo> updateEntrada(@PathVariable Integer id, @RequestBody EntradaForo entradaForo) {
+  //     EntradaForo updatedEntrada = entradaForoService.updateEntrada(id, entradaForo);
+  //     return ResponseEntity.ok(updatedEntrada);
+  // }
   // @PutMapping("/{idEntrada}")
   // public ResponseEntity<EntradaForo>
   // updateEntradaForo(@PathVariable("idEntrada") Integer idEntrada,
