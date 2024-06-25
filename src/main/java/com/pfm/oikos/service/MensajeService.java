@@ -29,20 +29,24 @@ public class MensajeService {
     }
 
     public Mensaje updateMensaje(Integer idMensaje, Mensaje mensajeDetails) throws MensajeNotFoundException {
-        Optional<Mensaje> optionalMensaje = mensajeRepository.findById(idMensaje);
+        Mensaje existingMensaje = mensajeRepository.findById(idMensaje)
+                .orElseThrow(() -> new MensajeNotFoundException("Mensaje not found with id: " + idMensaje));
 
-        if (optionalMensaje.isPresent()) {
-            Mensaje existingMensaje = optionalMensaje.get();
-
+        if (mensajeDetails.getUsuario() != null) {
             existingMensaje.setUsuario(mensajeDetails.getUsuario());
-            existingMensaje.setEntradaForo(mensajeDetails.getEntradaForo());
-            existingMensaje.setCuerpo(mensajeDetails.getCuerpo());
-            existingMensaje.setTiempo(mensajeDetails.getTiempo());
-
-            return mensajeRepository.save(existingMensaje);
-        } else {
-            throw new MensajeNotFoundException("Mensaje not found with id: " + idMensaje);
         }
+        if (mensajeDetails.getEntradaForo() != null) {
+            existingMensaje.setEntradaForo(mensajeDetails.getEntradaForo());
+        }
+        if (mensajeDetails.getCuerpo() != null) {
+            existingMensaje.setCuerpo(mensajeDetails.getCuerpo());
+        }
+        if (mensajeDetails.getTiempo() != null) {
+            existingMensaje.setTiempo(mensajeDetails.getTiempo());
+        }
+
+        // Save and return the updated mensaje
+        return mensajeRepository.save(existingMensaje);
     }
 
     public void deleteMensaje(int id) {
