@@ -60,6 +60,14 @@ public class TareaService {
     return tareaRepository.save(existingTarea);
   }
 
+  public List<Tarea> getTareasByFincaId(Integer fincaId) {
+    List<Tarea> tareas = tareaRepository.findAll();
+    return tareas.stream()
+        .filter(tarea -> tarea.getInstalacion() != null && // Check for null propiedad
+            tarea.getInstalacion().getFinca().getIdFinca().equals(fincaId))
+        .collect(Collectors.toList());
+  }
+
   public void deleteTarea(Integer idTarea) throws TareaNotFoundException {
     if (tareaRepository.existsById(idTarea)) {
       tareaRepository.deleteById(idTarea);
