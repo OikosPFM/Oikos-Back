@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req -> req
                                 .requestMatchers("/login/**", "/register/**", "/api/v1/fincas/**",
-                                        "/api/v1/propiedades/**", "/api/v1/entradasForo/**")
+                                        "/api/v1/propiedades/**", "/api/v1/entradasForo/**","/api/v1/mensajes/**")
                                 .permitAll() // Allow access to these paths without authorization
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/eventos/**").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/api/v1/eventos/**").hasAuthority("ADMIN")
