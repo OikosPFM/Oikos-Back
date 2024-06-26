@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pfm.oikos.entity.Evento;
+import com.pfm.oikos.entity.Instalacion;
 import com.pfm.oikos.entity.Tarea;
+import com.pfm.oikos.exception.InstalacionNotFoundException;
 import com.pfm.oikos.exception.TareaNotFoundException;
 import com.pfm.oikos.service.TareaService;
 
@@ -51,7 +55,17 @@ public class TareaController {
     }
   }
 
-  @PutMapping("/{idTarea}")
+  // @PutMapping("/{idTarea}")
+  // public ResponseEntity<Tarea> updateTarea(@PathVariable Integer idTarea,
+  // @RequestBody Tarea tareaDetails) {
+  // try {
+  // Tarea updatedTarea = tareaService.updateTarea(idTarea, tareaDetails);
+  // return new ResponseEntity<>(updatedTarea, HttpStatus.OK);
+  // } catch (TareaNotFoundException exception) {
+  // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  // }
+  // }
+  @PatchMapping("/{idTarea}")
   public ResponseEntity<Tarea> updateTarea(@PathVariable Integer idTarea, @RequestBody Tarea tareaDetails) {
     try {
       Tarea updatedTarea = tareaService.updateTarea(idTarea, tareaDetails);
@@ -69,5 +83,11 @@ public class TareaController {
     } catch (TareaNotFoundException exception) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+  }
+
+  @GetMapping("/finca/{fincaId}")
+  public ResponseEntity<List<Tarea>> getTareasByFincaId(@PathVariable("fincaId") Integer fincaId) {
+    List<Tarea> tareas = tareaService.getTareasByFincaId(fincaId);
+    return new ResponseEntity<>(tareas, HttpStatus.OK);
   }
 }
