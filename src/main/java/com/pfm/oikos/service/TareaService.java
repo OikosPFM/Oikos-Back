@@ -68,6 +68,12 @@ public class TareaService {
         .collect(Collectors.toList());
   }
 
+  public List<Tarea> getTareasByUsuarioId(Integer idUsuario) {
+    List<Tarea> tareas = tareaRepository.findAll();
+    return tareas.stream().filter(tarea -> tarea.getUsuarioAsignado().getIdUsuario().equals(idUsuario))
+        .collect(Collectors.toList());
+  }
+
   public void deleteTarea(Integer idTarea) throws TareaNotFoundException {
     if (tareaRepository.existsById(idTarea)) {
       tareaRepository.deleteById(idTarea);
