@@ -60,17 +60,12 @@ public class TareaService {
     return tareaRepository.save(existingTarea);
   }
 
-  public List<Tarea> getTareasByFincaId(Integer fincaId) {
+  public List<Tarea> getTareasByFincaUsuarioId(Integer fincaId, Integer idUsuario) {
     List<Tarea> tareas = tareaRepository.findAll();
     return tareas.stream()
         .filter(tarea -> tarea.getInstalacion() != null && // Check for null propiedad
-            tarea.getInstalacion().getFinca().getIdFinca().equals(fincaId))
-        .collect(Collectors.toList());
-  }
-
-  public List<Tarea> getTareasByUsuarioId(Integer idUsuario) {
-    List<Tarea> tareas = tareaRepository.findAll();
-    return tareas.stream().filter(tarea -> tarea.getUsuarioAsignado().getIdUsuario().equals(idUsuario))
+            tarea.getInstalacion().getFinca().getIdFinca().equals(fincaId)
+            && tarea.getUsuarioAsignado().getIdUsuario().equals(idUsuario))
         .collect(Collectors.toList());
   }
 

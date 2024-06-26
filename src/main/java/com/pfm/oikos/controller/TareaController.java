@@ -85,9 +85,10 @@ public class TareaController {
     }
   }
 
-  @GetMapping("/finca/{fincaId}")
-  public ResponseEntity<List<Tarea>> getTareasByFincaId(@PathVariable("fincaId") Integer fincaId) {
-    List<Tarea> tareas = tareaService.getTareasByFincaId(fincaId);
+  @GetMapping("/finca/{fincaId}/{usuarioId}")
+  public ResponseEntity<List<Tarea>> getTareasByFincaId(@PathVariable("fincaId") Integer fincaId, Integer usuarioId) {
+    List<Tarea> tareas = tareaService.getTareasByFincaUsuarioId(fincaId, usuarioId);
     return new ResponseEntity<>(tareas, HttpStatus.OK);
   }
+
 }
