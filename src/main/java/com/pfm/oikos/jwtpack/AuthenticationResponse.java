@@ -11,13 +11,13 @@ public class AuthenticationResponse {
 
     @JsonProperty("refresh_token")
     private String refreshToken;
+*/
 
     @JsonProperty("message")
-    private String message;*/
-
-    public AuthenticationResponse(String token) {
+    private String message;
+    public AuthenticationResponse(String token, String message) {
         this.token = token;
-    }
+        this.message = message;    }
 
     public String getToken() {
     	return token;
@@ -28,11 +28,11 @@ public class AuthenticationResponse {
 
     public String getRefreshToken() {
         return refreshToken;
-    }
+    }*/
 
     public String getMessage() {
         return message;
-    }*/
+    }
     
     
 }
