@@ -18,7 +18,6 @@ public class AuthenticationController {
         this.authService = authService;
     }
 
-
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody Usuario request
@@ -33,17 +32,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(
-            @RequestBody Usuario request
-    ) {
+            @RequestBody Usuario request) {
         return ResponseEntity.ok(authService.authenticate(request));
     }
-
-    /*@SuppressWarnings("rawtypes")
-	@PostMapping("/refresh_token")
-    public ResponseEntity refreshToken(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
-        return authService.refreshToken(request, response);
-    }*/
 }

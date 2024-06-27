@@ -1,12 +1,9 @@
 package com.pfm.oikos.entity;
 
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,8 +16,10 @@ public class Rol {
     private String name;
     private String descripcion;
 
-    /*@ManyToMany(mappedBy = "roles")
-    private Set<Usuario> usuarios;*/
+    /*
+     * @ManyToMany(mappedBy = "roles")
+     * private Set<Usuario> usuarios;
+     */
 
     // Getters and Setters
     public Integer getIdRol() {
@@ -47,11 +46,13 @@ public class Rol {
         this.descripcion = descripcion;
     }
 
-   /* public Set<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(Set<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }*/
+    /*
+     * public Set<Usuario> getUsuarios() {
+     * return usuarios;
+     * }
+     * 
+     * public void setUsuarios(Set<Usuario> usuarios) {
+     * this.usuarios = usuarios;
+     * }
+     */
 }
