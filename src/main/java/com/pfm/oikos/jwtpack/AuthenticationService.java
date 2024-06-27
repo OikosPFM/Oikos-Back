@@ -36,6 +36,9 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(Usuario request) {
         // check if user already exist. if exist then authenticate the user
+        if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
+        }
 
         // Crear un nuevo usuario basado en la entidad Usuario
         Usuario usuario = new Usuario();
@@ -65,7 +68,7 @@ public class AuthenticationService {
         // Generar el token
         String token = jwtService.generateToken(usuario);
 
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(token, null);
     }
 
     public AuthenticationResponse authenticate(Usuario request) {
@@ -87,7 +90,7 @@ public class AuthenticationService {
             throw new RuntimeException("User is not active");
         }
 
-        String token = jwtService.generateToken(user);
-        return new AuthenticationResponse(token);
+        String token = jwtService.generateToken(user); 
+        return new AuthenticationResponse(token, null);
     }
 }

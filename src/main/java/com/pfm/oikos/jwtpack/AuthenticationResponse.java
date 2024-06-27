@@ -1,15 +1,34 @@
 package com.pfm.oikos.jwtpack;
 
 public class AuthenticationResponse {
+	
+	private String token; 
+    /*@JsonProperty("access_token")
+   
+    private String accessToken;
 
-    private String token;
+    @JsonProperty("refresh_token")
+    private String refreshToken;
+*/
 
-    public AuthenticationResponse(String token) {
+    @JsonProperty("message")
+    private String message;
+    public AuthenticationResponse(String token, String message) {
         this.token = token;
-    }
+        this.message = message;    }
 
     public String getToken() {
-        return token;
+    	return token;
+    }
+    /*public String getAccessToken() {
+        return accessToken;
     }
 
+    public String getRefreshToken() {
+        return refreshToken;
+    }*/
+
+    public String getMessage() {
+        return message;
+    }
 }
