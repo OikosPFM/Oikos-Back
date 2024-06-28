@@ -42,12 +42,6 @@ public class JwtService {
 
     public boolean isValidRefreshToken(String token, Usuario usuario) {
         String username = extractUsername(token);
-
-        /*boolean validRefreshToken = tokenRepository
-                .findByRefreshToken(token)
-                .map(t -> !t.isLoggedOut())
-                .orElse(false);*/
-
         return (username.equals(usuario.getUsername())) && !isTokenExpired(token);
     }
 
@@ -70,14 +64,6 @@ public class JwtService {
                 .getPayload();
     }
 
-
-    /*public String generateAccessToken(Usuario usuario) {
-        return generateToken(usuario, accessTokenExpire);
-    }
-
-    public String generateRefreshToken(Usuario usuario) {
-        return generateToken(usuario, refreshTokenExpire );
-    }*/
 
     public String generateToken(Usuario usuario) {
         String token = Jwts
