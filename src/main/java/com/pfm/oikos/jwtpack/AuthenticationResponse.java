@@ -1,5 +1,7 @@
 package com.pfm.oikos.jwtpack;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AuthenticationResponse {
 	
 	private String token; 
