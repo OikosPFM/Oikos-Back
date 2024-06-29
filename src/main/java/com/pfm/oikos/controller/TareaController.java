@@ -32,6 +32,7 @@ public class TareaController {
   @Autowired
   private TareaService tareaService;
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Tarea createTarea(@RequestBody Tarea tarea) {
@@ -83,12 +84,6 @@ public class TareaController {
     } catch (TareaNotFoundException exception) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-  }
-
-  @GetMapping("/finca/{fincaId}/{usuarioId}")
-  public ResponseEntity<List<Tarea>> getTareasByFincaId(@PathVariable("fincaId") Integer fincaId, Integer usuarioId) {
-    List<Tarea> tareas = tareaService.getTareasByFincaUsuarioId(fincaId, usuarioId);
-    return new ResponseEntity<>(tareas, HttpStatus.OK);
   }
 
 }
