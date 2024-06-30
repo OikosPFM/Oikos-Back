@@ -22,6 +22,10 @@ public class EntradaForo {
     @JoinColumn(name = "idAutor")
     private Usuario autor;
 
+    @ManyToOne
+    @JoinColumn(name = "idFinca")
+    private Finca finca;
+
     private String titulo;
     private String textoComentario;
     private LocalDate fecha;
@@ -41,6 +45,14 @@ public class EntradaForo {
 
     public void setAutor(Usuario autor) {
         this.autor = autor;
+    }
+
+    public Finca getFinca() {
+        return finca;
+    }
+
+    public void setFinca(Finca finca) {
+        this.finca = finca;
     }
 
     public String getTitulo() {

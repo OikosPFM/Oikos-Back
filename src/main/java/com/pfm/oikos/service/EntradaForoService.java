@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pfm.oikos.entity.EntradaForo;
 import com.pfm.oikos.exception.EntradaForoNotFoundException;
 import com.pfm.oikos.repository.EntradaForoRepository;
+import com.pfm.oikos.repository.FincaRepository;
 
 @Service
 public class EntradaForoService {
@@ -16,8 +17,15 @@ public class EntradaForoService {
   @Autowired
   private EntradaForoRepository entradaForoRepository;
 
+  @Autowired
+  private FincaRepository fincaRepository;
+
   public EntradaForo saveEntradaForo(EntradaForo entradaForo) {
     return entradaForoRepository.save(entradaForo);
+  }
+
+  public Optional<EntradaForo> getEntradaForoById(int id) {
+    return entradaForoRepository.findById(id);
   }
 
   public EntradaForo getEntradaForo(Integer idEntrada) throws EntradaForoNotFoundException {
@@ -29,20 +37,40 @@ public class EntradaForoService {
     return entradaForoRepository.findAll();
   }
 
+
   public EntradaForo updateEntradaForo(Integer idEntrada, EntradaForo entradaForoDetails) throws EntradaForoNotFoundException {
-    Optional<EntradaForo> optionalEntrada = entradaForoRepository.findById(idEntrada);
+        EntradaForo existingEntradaForo = entradaForoRepository.findById(idEntrada)
+                .orElseThrow(() -> new EntradaForoNotFoundException("Mensaje not found with id: " + idEntrada));
 
-    if (optionalEntrada.isPresent()) {
-        EntradaForo existingEntradaForo = optionalEntrada.get();
+        if (entradaForoDetails.getAutor() != null) {
+            existingEntradaForo.setAutor(entradaForoDetails.getAutor());
+        }
+        if (entradaForoDetails.getFinca() != null) {
+            existingEntradaForo.setFinca(entradaForoDetails.getFinca());
+        }
+        if (entradaForoDetails.getTextoComentario() != null) {
+            existingEntradaForo.setTextoComentario(entradaForoDetails.getTextoComentario());
+        }
 
-        existingEntradaForo.setTitulo(entradaForoDetails.getTitulo());
-        existingEntradaForo.setTextoComentario(entradaForoDetails.getTextoComentario());
-
+        // Save and return the updated mensaje
         return entradaForoRepository.save(existingEntradaForo);
-    } else {
-        throw new EntradaForoNotFoundException("Tarea not found with id: " + idEntrada);
-    }
-}
+  }
+
+  
+//   public EntradaForo updateEntradaForo(Integer idEntrada, EntradaForo entradaForoDetails) throws EntradaForoNotFoundException {
+//     Optional<EntradaForo> optionalEntrada = entradaForoRepository.findById(idEntrada);
+
+//     if (optionalEntrada.isPresent()) {
+//         EntradaForo existingEntradaForo = optionalEntrada.get();
+
+//         existingEntradaForo.setTitulo(entradaForoDetails.getTitulo());
+//         existingEntradaForo.setTextoComentario(entradaForoDetails.getTextoComentario());
+
+//         return entradaForoRepository.save(existingEntradaForo);
+//     } else {
+//         throw new EntradaForoNotFoundException("Tarea not found with id: " + idEntrada);
+//     }
+// }
 
   // public EntradaForo updateEntrada(Integer id, EntradaForo entradaDetails) {
   //   EntradaForo entrada = entradaForoRepository.findById(id)
@@ -61,14 +89,4 @@ public class EntradaForoService {
       throw new EntradaForoNotFoundException("EntradaForo not found with id: " + idEntrada);
     }
   }
-
-  // public EntradaForo updateEntradaForo(Integer idEntrada, EntradaForo
-  // nuevaEntradaForo) throws EntradaForoNotFoundException {
-  // return entradaForoRepository.findById(idEntrada).map(entradaForo -> {
-  // entradaForo.setTitulo(nuevaEntradaForo.getTitulo());
-  // entradaForo.setContenido(nuevaEntradaForo.getContenido());
-  // return entradaForoRepository.save(entradaForo);
-  // }).orElseThrow(() -> new EntradaForoNotFoundException("EntradaForo not found
-  // with id: " + idEntrada));
-  // }
 }
