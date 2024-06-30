@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pfm.oikos.entity.Tarea;
+import com.pfm.oikos.entity.Usuario;
 import com.pfm.oikos.exception.TareaNotFoundException;
+import com.pfm.oikos.exception.UsuarioNotFoundException;
 import com.pfm.oikos.service.TareaService;
 
 @CrossOrigin(origins = "*")
@@ -51,7 +54,7 @@ public class TareaController {
     }
   }
 
-  @PutMapping("/{idTarea}")
+  @PatchMapping("/{idTarea}")
   public ResponseEntity<Tarea> updateTarea(@PathVariable Integer idTarea, @RequestBody Tarea tareaDetails) {
     try {
       Tarea updatedTarea = tareaService.updateTarea(idTarea, tareaDetails);
@@ -70,4 +73,5 @@ public class TareaController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
+
 }
