@@ -54,7 +54,7 @@ public class TareaController {
     }
   }
 
-  @PutMapping("/{idTarea}")
+  @PatchMapping("/{idTarea}")
   public ResponseEntity<Tarea> updateTarea(@PathVariable Integer idTarea, @RequestBody Tarea tareaDetails) {
     try {
       Tarea updatedTarea = tareaService.updateTarea(idTarea, tareaDetails);
@@ -74,13 +74,4 @@ public class TareaController {
     }
   }
 
-  @PatchMapping("/{idTarea}")
-  public ResponseEntity<Tarea> updateTareaEstado(@PathVariable Integer idTarea) {
-    try {
-      Tarea updatedTarea = tareaService.updateTareaEstado(idTarea);
-      return ResponseEntity.ok(updatedTarea);
-    } catch (UsuarioNotFoundException exception) {
-      return ResponseEntity.notFound().build();
-    }
-  }
 }
