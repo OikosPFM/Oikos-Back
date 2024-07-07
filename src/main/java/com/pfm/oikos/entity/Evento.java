@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,7 +34,11 @@ public class Evento {
     private Usuario organizador;
 
     private String titulo;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
+
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime hora;
     private String descripcion;
 
@@ -43,11 +49,7 @@ public class Evento {
     private Integer aforo;
 
     @ManyToMany
-    @JoinTable(
-        name = "asistencia_evento",
-        joinColumns = @JoinColumn(name = "idEvento"),
-        inverseJoinColumns = @JoinColumn(name = "idUsuario")
-    )
+    @JoinTable(name = "asistencia_evento", joinColumns = @JoinColumn(name = "idEvento"), inverseJoinColumns = @JoinColumn(name = "idUsuario"))
     private Set<Usuario> asistentes;
 
     // Getters and Setters
@@ -138,6 +140,7 @@ public class Evento {
     public void setAsistentes(Set<Usuario> asistentes) {
         this.asistentes = asistentes;
     }
+
 }
 
 enum Categoria {

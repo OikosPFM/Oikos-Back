@@ -1,7 +1,10 @@
 package com.pfm.oikos.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pfm.oikos.entity.Propiedad;
 import com.pfm.oikos.exception.PropiedadNotFoundException;
@@ -19,7 +22,7 @@ public class PropiedadService {
 
   public Propiedad getPropiedad(Integer idPropiedad) throws PropiedadNotFoundException {
     return propiedadRepository.findById(idPropiedad)
-      .orElseThrow(() -> new PropiedadNotFoundException("Propiedad not found with id: " + idPropiedad));
+        .orElseThrow(() -> new PropiedadNotFoundException("Propiedad not found with id: " + idPropiedad));
   }
 
   public void deletePropiedad(Integer idPropiedad) throws PropiedadNotFoundException {
@@ -29,4 +32,14 @@ public class PropiedadService {
       throw new PropiedadNotFoundException("Propiedad not found with id: " + idPropiedad);
     }
   }
+
+  public List<Propiedad> getAllPropiedades() {
+    return propiedadRepository.findAll();
+  }
+
+  @Transactional(readOnly = true)
+  public Propiedad findByPortalPisoLetra(String portal, String numeroPiso, String letra) {
+    return propiedadRepository.findByPortalAndNumeroPisoAndLetra(portal, numeroPiso, letra);
+  }
+
 }

@@ -3,6 +3,9 @@ package com.pfm.oikos.entity;
 import java.time.LocalTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -29,7 +32,7 @@ public class Instalacion {
     private Finca finca;
 
     private String nombre;
-    
+
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "dias_abierto", joinColumns = @JoinColumn(name = "id_instalacion"))
     @Column(name = "dia")
@@ -43,13 +46,16 @@ public class Instalacion {
     private Integer invitacionesMensualesMaximas;
 
     @OneToMany(mappedBy = "instalacion")
+    @JsonIgnore
     private Set<Reserva> reservas;
 
     @OneToMany(mappedBy = "instalacion")
-    private Set<Evento> eventos;
-
-    @OneToMany(mappedBy = "instalacion")
+    @JsonIgnore
     private Set<Tarea> tareas;
+
+    @OneToMany(mappedBy = "instalacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Evento> eventos;
 
     // Getters and Setters
     public Integer getIdInstalacion() {
@@ -132,19 +138,19 @@ public class Instalacion {
         this.reservas = reservas;
     }
 
-    public Set<Evento> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(Set<Evento> eventos) {
-        this.eventos = eventos;
-    }
-
     public Set<Tarea> getTareas() {
         return tareas;
     }
 
     public void setTareas(Set<Tarea> tareas) {
         this.tareas = tareas;
+    }
+
+    public Set<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(Set<Evento> eventos) {
+        this.eventos = eventos;
     }
 }

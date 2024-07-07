@@ -7,5 +7,5 @@ import com.pfm.oikos.entity.Evento;
 
 @Repository
 public interface EventoRepository extends JpaRepository<Evento, Integer> {
-}
 
+}
